@@ -1,0 +1,40 @@
+# NFL Play Prediction
+
+Based on the stats of all NFL seasons from 2009 to present, we try to predict the outcome of a play based on the situation and under the assumption of a certain play. This way, one could plug in every possible play and predict the best play to choose.
+
+Data is gotten directly from NFL.com via the nflgame API.
+
+The format is as follows:
+(DEN, DEN 22, Q4, 3 and 8) (4:42) (Shotgun) P.Manning pass short left to D.Thomas for 78 yards, TOUCHDOWN. Penalty on BAL-E.Dumervil, Defensive Offside, declined.
+
+However, there are special cases and inconsistencies that are removed or adjusted to get structured data.
+
+Features
+=========
+* Team
+* Opponent
+* Quarter
+* Time
+* Field position
+* Down
+* Yards to go
+* Shotgun formation (0/1)
+* Pass (0/1)
+* Side
+  -> Pass: left / middle / right
+  -> Run: left end / left tackle / left guard / middle / right guard / right tackle / right end
+* Pass length (short / deep)
+* QB Run (0/1)
+
+After filtering out irrelevant plays (special teams, "No Play"), we extracted information from the strings about the play. The labels show the success of the play, i.e. TD or not, how many yards, first down or not, possibly a combination of these (as a real value).
+
+The Approach:
+Feature extraction: What features do we use? What plays are ignored?
+Prediction: Probability of success? What's a success? 
+
+Machine Learning methods:
+Classification (Success / Fail): SVM, Nearest Neighbors, Decision Trees, Logistic Regression, Neural Nets
+Regression (Yards): SVR, Neural Nets, Linear Regression
+Dimensionality reduction: PCA
+Prediction: Play with highest probability (or score?) of success
+Evaluation: k-fold cross validation
